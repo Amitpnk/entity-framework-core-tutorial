@@ -6,8 +6,11 @@ Step by step creating web api application
 
 - [Sending Feedback](#sending-feedback)
 - [Folder Structure](#folder-structure)
--  Sample application with each labs
+-  [Sample application with each labs](#sample-application-with-each-steps)
+    - [Step 1 - Create Application](#step-1---create-application)
     - [Step 2 - Adding EntityFramework via Nuget ](#step-2---adding-entityframework-via-nuget)
+    - [Step 3 - Create Console App ]
+    - [Step 4 - Adding migration]
      
 
 ## Sending Feedback
@@ -41,7 +44,7 @@ public class MilitaryContext : DbContext
 
 Use EF Core Power Tool Extension for VS 2019
 
-### Step 2 - Create Console App 
+### Step 3 - Create Console App 
 
 Create console app and make it as default project
 
@@ -78,7 +81,7 @@ class Program
 
 ```
 
-### Step 3 - Adding migration
+### Step 4 - Adding migration
 
 * Install Microsoft.EntityFrameworkCore.Tools to <b>ConsoleApp</b> Application <br/>
 * Make it Console application as default project

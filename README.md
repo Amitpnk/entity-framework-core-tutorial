@@ -6,11 +6,16 @@ Step by step creating web api application
 
 - [Sending Feedback](#sending-feedback)
 - [Folder Structure](#folder-structure)
--  [Sample application with each labs](#sample-application-with-each-steps)
+- [Sample application with each labs](#sample-application-with-each-steps)
     - [Step 1 - Create Application](#step-1---create-application)
     - [Step 2 - Adding EntityFramework via Nuget ](#step-2---adding-entityframework-via-nuget)
     - [Step 3 - Create Console App ]
     - [Step 4 - Adding migration]
+    - [Step 5 - Script migration for production DB]
+    - [Step 6 - Reverse engineering from existing database]
+    - [Step 7 - Many to many relationship]
+    - [Step 8 - One to one relationship]
+    - [Step 9 - Visualising how EF Core model looks]
      
 
 ## Sending Feedback
@@ -90,14 +95,14 @@ class Program
     * Update-Database
 
 
-### Step 4 - Script migration for production DB
+### Step 5 - Script migration for production DB
 
 If we want to get SQL script
 
 * In Package Manager console, run below command
     * script-migration
 
-### Step 5 - Reverse engineering from existing database
+### Step 6 - Reverse engineering from existing database
 
 * Class library .NET Standard as MilitaryApp.ReverseEnggData and reference this to ConsoleApp
 * In Package Manager console in MilitaryApp.ReverseEnggData, run below command
@@ -106,7 +111,7 @@ If we want to get SQL script
 scaffold-dbcontext -provider Microsoft.EntityFrameworkCore.SqlServer -connection "Data Source=(local)\SQLexpress;Initial Catalog=MilitaryDB;Integrated Security=True"
 ```
 
-### Step 6 - Many to many relationship
+### Step 7 - Many to many relationship
 
 ```C#
 public class MilitaryBattle
@@ -156,7 +161,7 @@ protected override void OnModelCreating(ModelBuilder modelBuilder)
 ```
 
 
-### Step 6 - One to one relationship
+### Step 8 - One to one relationship
 
 ```C#
 public class Military
@@ -173,7 +178,7 @@ public class Horse
 }
 ```
 
-### Step 7 - Visualising how EF Core model looks
+### Step 9 - Visualising how EF Core model looks
 
 * Install DGML editor in VS 2019 setup file (available in individual components)
 * Install EF Core Power Tools via Extension

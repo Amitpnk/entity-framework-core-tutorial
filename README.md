@@ -9,13 +9,13 @@ Step by step creating web api application
 - [Sample application with each labs](#sample-application-with-each-steps)
     - [Step 1 - Create Application](#step-1---create-application)
     - [Step 2 - Adding EntityFramework via Nuget ](#step-2---adding-entityframework-via-nuget)
-    - [Step 3 - Create Console App ]
-    - [Step 4 - Adding migration]
-    - [Step 5 - Script migration for production DB]
-    - [Step 6 - Reverse engineering from existing database]
-    - [Step 7 - Many to many relationship]
-    - [Step 8 - One to one relationship]
-    - [Step 9 - Visualising how EF Core model looks]
+    - [Step 3 - Create Console App](#step-3---adding-migration)
+    - [Step 4 - Adding migration](#step-4---adding-migration)
+    - [Step 5 - Script migration for production DB](#step-5---script-migration-for-production-db)
+    - [Step 6 - Reverse engineering from existing database](#step-6---reverse-engineering-from-existing-database)
+    - [Step 7 - Many to many relationship](#step-7---many-to-many-relationship)
+    - [Step 8 - One to one relationship](#step-8---one-to-one-relationship)
+    - [Step 9 - Visualising how EF Core model looks](#step-9---visualising-how-ef-core-model-looks)
      
 
 ## Sending Feedback

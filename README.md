@@ -188,8 +188,8 @@ public DbSet<Horse> Horses { get; set; }
 
 Note: Anyother way we can mapping via model binder
 ```C#
-    // Other options to create table is via modelbuilder
-    modelBuilder.Entity<Horse>().ToTable("Horses");
+// Other options to create table is via modelbuilder
+modelBuilder.Entity<Horse>().ToTable("Horses");
 ```
 
 ### Step 9 - Visualising how EF Core model looks
@@ -199,3 +199,9 @@ Note: Anyother way we can mapping via model binder
 * Make multi target to netcoreapp3.1,netstandard2.0
 * Add Microsoft.EntityFrameworkCore.Design lib via nuget package manager
 * Create *.dgml file by right click on MilitaryApp.Data > EF Core Power Tools > Add DbContext Model diagram
+
+### Step 10 - Running Migration for Model changes
+
+* In Package Manager console in MilitaryApp.Data , run below command
+    * Add-Migration modification_v1
+    * Update-Database

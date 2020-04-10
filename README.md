@@ -153,6 +153,7 @@ public class Battle
 in MilitaryContext.cs
 ```C#
 ...
+public DbSet<Battle> Battles { get; set; }
 
 protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -176,6 +177,19 @@ public class Horse
     public string Name { get; set; }
     public int MilitaryId { get; set; }
 }
+```
+
+
+in MilitaryContext.cs
+```C#
+...
+public DbSet<Horse> Horses { get; set; }
+```
+
+Note: Anyother way we can mapping via model binder
+```C#
+    // Other options to create table is via modelbuilder
+    modelBuilder.Entity<Horse>().ToTable("Horses");
 ```
 
 ### Step 9 - Visualising how EF Core model looks

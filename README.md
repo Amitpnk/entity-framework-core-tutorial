@@ -7,15 +7,20 @@ Step by step creating web api application
 - [Sending Feedback](#sending-feedback)
 - [About Entity Framework Core](#folder-structure)
 - [Sample application with each labs](#sample-application-with-each-steps)
-    - [Step 1 - Create Application](#step-1---create-application)
-    - [Step 2 - Adding EntityFramework via Nuget ](#step-2---adding-entityframework-via-nuget)
-    - [Step 3 - Create Console App](#step-3---adding-migration)
-    - [Step 4 - Adding migration](#step-4---adding-migration)
-    - [Step 5 - Script migration for production DB](#step-5---script-migration-for-production-db)
-    - [Step 6 - Reverse engineering from existing database](#step-6---reverse-engineering-from-existing-database)
-    - [Step 7 - Many to many relationship](#step-7---many-to-many-relationship)
-    - [Step 8 - One to one relationship](#step-8---one-to-one-relationship)
-    - [Step 9 - Visualising how EF Core model looks](#step-9---visualising-how-ef-core-model-looks)
+        - [Step 1 - Create Application](#step-1---create-application)
+    - Controlling database creation and Schema changes
+        - [Step 2 - Adding EntityFramework via Nuget ](#step-2---adding-entityframework-via-nuget)
+        - [Step 3 - Create Console App](#step-3---adding-migration)
+        - [Step 4 - Adding migration](#step-4---adding-migration)
+        - [Step 5 - Script migration for production DB](#step-5---script-migration-for-production-db)
+        - [Step 6 - Reverse engineering from existing database](#step-6---reverse-engineering-from-existing-database)
+    - Mapping many to mmany and one to one relationship
+        - [Step 7 - Many to many relationship](#step-7---many-to-many-relationship)
+        - [Step 8 - One to one relationship](#step-8---one-to-one-relationship)
+        - [Step 9 - Visualising how EF Core model looks](#step-9---visualising-how-ef-core-model-looks)
+        - [Step 10 - Running Migration for Model changes](d)
+    - Interacting with EF Core data model
+        - Step 11 - Adding logging to EF Core's 
      
 
 ## Sending Feedback
@@ -209,3 +214,147 @@ modelBuilder.Entity<Horse>().ToTable("Horses");
 * In Package Manager console in MilitaryApp.Data , run below command
     * Add-Migration modification_v1
     * Update-Database
+
+### Step 11 - Adding logging to EF Core's 
+
+Micorsoft.Extensions.Logging lib is already available in ASP.NET CORE
+
+* Install below lib to <b>MilitaryApp.Data</b> Class library <br/>
+    * Micorsoft.Extensions.Logging
+    * Micorsoft.Extensions.Logging.Console
+
+Add below code snippet to MilitaryApp.Data 
+
+```c#
+      protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder
+                .UseLoggerFactory(ConsoleLoggerFactory)
+                // For enabling sensitive data
+                .EnableSensitiveDataLogging()
+                .UseSqlServer("Data Source=(local)\\SQLexpress;Initial Catalog=MilitaryDB;Integrated Security=True");
+        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder
+                .UseLoggerFactory(ConsoleLoggerFactory)
+                .UseSqlServer("Data Source=(local)\\SQLexpress;Initial Catalog=MilitaryDB;Integrated Security=True");
+        }
+```
+
+Step 12: For bulk operations
+
+Atleast 4 operations is needed for bulk operations,
+
+```c#
+    private static void InsertMulitipleMilitary()
+    {
+        // Atleast 4 operations is needed for bulk operations 
+        var military1 = new Military { Name = "Military 1" };
+        var military2 = new Military { Name = "Military 2" };
+        var military3 = new Military { Name = "Military 3" };
+        var military4 = new Military { Name = "Military 4" };
+
+        // alterante way
+        //var militaries = new List<Military>();
+        //militaries.Add(military1);
+        //militaries.Add(military2);
+        //context.Militaries.AddRange(militaries);
+            
+        context.Militaries.AddRange(military1, military2, military3, military4);
+        context.SaveChanges();
+    }
+
+    private static void InsertVariousType()
+    {
+        // For inserting to military table
+        var militarys = new Military { Name = "Military 5 with king 1" };
+        var kings = new King { KingName = "King1" };
+        context.AddRange(militarys,kings);
+        context.SaveChanges();
+    }
+```
+
+Step 13: Understading queries
+
+Internally EF core does cache queries to reduce repeating effort in same application instance
+
+```c#
+    // LINQ Methods
+    context.Militaries.ToList();
+
+    context.Militaries
+    .Where(m=>m.Name =="Amit")
+    .ToList();
+
+    // LINQ Query Syntax
+    (from m in context.Militaries
+    select m).ToList();
+
+    (from m in context.Militaries
+    where m.Name == "Amit"
+    select m).ToList();
+
+    // For parameterised queries, pass value with variable
+    var name = "Amit";
+    context.Militaries
+    .Where(m=>m.Name ==name)
+    .ToList();
+
+    // Like operator
+    context.Militaries.Where(x => EF.Functions.Like(x.Name, "Am%")).ToList();
+```
+
+Step 14: Aggregating in Queries
+
+    * ToList()
+    * First()
+    * FirstOrDefault()
+    * Single()
+    * SingleOrDefault()
+    * Last()
+    * LastOrDefault()
+    * Count()
+    * LongCount()
+    * Min(), Max()
+    * Average(), Sum()
+
+    DB set method that will execute
+    * Find(keyValue)
+
+```c#
+    // Select top 1 * ...
+    context.Militaries.Where(m=>m.Name =="Amit")
+    .FirstOrDefault();
+    // or
+    context.Militaries.FirstOrDefault(m=>m.Name =="Amit");
+
+    // find ID
+    context.Militaries.Find(2);
+
+    // Order by with LastOrDefault
+    context.Militaries.OrderBy(m=>m.Id)
+    .LastOrDefault(m=>m.Name =="Amit");
+
+    // For pagination Skip and Take
+     var militaries = context.Militaries.Skip(0).Take(3).ToList();
+            militaries.ForEach(m => m.Name += " update ");
+```
+
+Step 14: Updating object
+
+```c#
+    var militaries = context.Militaries.FirstOrDefault();
+    militaries.Name += "Name";
+    context.Militaries.Find(2);
+```
+
+Step 15: Deleting object
+
+```c#
+    var militaries = context.Militaries.FirstOrDefault();
+    context.Militaries.Remove(militaries);
+    context.SaveChanges();
+```
+

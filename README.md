@@ -5,7 +5,7 @@ Step by step tutorials creating Entity framework core
 ## Table of Contents
 
 - [Sending Feedback](#sending-feedback)
-- [About Entity Framework Core](#folder-structure)
+- [About Entity Framework Core](#about-entity-framework-core)
 - [Sample application with each labs](#sample-application-with-each-steps)
     - Creating Entity Framework Core
         - [Step 1 - Create Application](#step-1---create-application)

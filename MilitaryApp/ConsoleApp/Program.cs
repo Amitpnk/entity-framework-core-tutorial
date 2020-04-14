@@ -87,7 +87,7 @@ namespace ConsoleApp
             militaries.ForEach(m => m.Name += " update ");
 
             // Incase for adding any new record
-            context.Militaries.Add(new Military { Name= "Military added"})
+            context.Militaries.Add(new Military { Name = "Military added" });
             context.SaveChanges();
         }
 

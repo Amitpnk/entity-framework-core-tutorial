@@ -19,7 +19,7 @@ Step by step tutorials creating Entity framework core
         - [Step 7 - Many to many relationship](#step-7---many-to-many-relationship)
         - [Step 8 - One to one relationship](#step-8---one-to-one-relationship)
         - [Step 9 - Visualising how EF Core model looks](#step-9---visualising-how-ef-core-model-looks)
-        - [Step 10 - Running Migration for Model changes](d)
+        - [Step 10 - Running Migration for Model changes](#step-10---running-migration-for-model-changes)
     - Interacting with EF Core data model
         - Step 11 - Adding logging to EF Core's 
      
@@ -284,7 +284,7 @@ Add below code snippet to MilitaryApp.Data
         }
 ```
 
-Step 12: For bulk operations
+### Step 12 - For bulk operations
 
 Atleast 4 operations is needed for bulk operations,
 
@@ -317,7 +317,7 @@ Atleast 4 operations is needed for bulk operations,
     }
 ```
 
-Step 13: Understading queries
+### Step 13 - Understading queries
 
 Internally EF core does cache queries to reduce repeating effort in same application instance
 
@@ -347,7 +347,7 @@ Internally EF core does cache queries to reduce repeating effort in same applica
     context.Militaries.Where(x => EF.Functions.Like(x.Name, "Am%")).ToList();
 ```
 
-Step 14: Aggregating in Queries
+### Step 14 - Aggregating in Queries
 
     * ToList()
     * First()
@@ -383,7 +383,7 @@ Step 14: Aggregating in Queries
             militaries.ForEach(m => m.Name += " update ");
 ```
 
-Step 14: Updating object
+### Step 14 - Updating object
 
 ```c#
     var militaries = context.Militaries.FirstOrDefault();
@@ -391,7 +391,7 @@ Step 14: Updating object
     context.Militaries.Find(2);
 ```
 
-Step 15: Deleting object
+### Step 15 - Deleting object
 
 ```c#
     var militaries = context.Militaries.FirstOrDefault();

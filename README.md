@@ -21,7 +21,12 @@ Step by step tutorials creating Entity framework core
         - [Step 9 - Visualising how EF Core model looks](#step-9---visualising-how-ef-core-model-looks)
         - [Step 10 - Running Migration for Model changes](#step-10---running-migration-for-model-changes)
     - Interacting with EF Core data model
-        - Step 11 - Adding logging to EF Core's 
+        - [Step 11 - Adding logging to EF Core's](#step-11---adding-logging-to-ef-cores)
+        - [Step 12 - For bulk operations](#step-12---for-bulk-operations)
+        - [Step 13 - Understading queries](#step-13---understading-queries)
+        - [Step 14 - Aggregating in Queries](#step-14---aggregating-in-queries)
+        - [Step 15 - Updating object](#step-15---updating-object)
+        - [Step 16 - Deleting object](#step-16---deleting-object)
      
 
 ## Sending Feedback
@@ -383,7 +388,7 @@ Internally EF core does cache queries to reduce repeating effort in same applica
             militaries.ForEach(m => m.Name += " update ");
 ```
 
-### Step 14 - Updating object
+### Step 15 - Updating object
 
 ```c#
     var militaries = context.Militaries.FirstOrDefault();
@@ -391,7 +396,7 @@ Internally EF core does cache queries to reduce repeating effort in same applica
     context.Militaries.Find(2);
 ```
 
-### Step 15 - Deleting object
+### Step 16 - Deleting object
 
 ```c#
     var militaries = context.Militaries.FirstOrDefault();

@@ -5,7 +5,7 @@ Step by step creating web api application
 ## Table of Contents
 
 - [Sending Feedback](#sending-feedback)
-- [Folder Structure](#folder-structure)
+- [About Entity Framework Core](#folder-structure)
 - [Sample application with each labs](#sample-application-with-each-steps)
     - [Step 1 - Create Application](#step-1---create-application)
     - [Step 2 - Adding EntityFramework via Nuget ](#step-2---adding-entityframework-via-nuget)
@@ -21,6 +21,10 @@ Step by step creating web api application
 ## Sending Feedback
 
 For feedback can drop mail to my email address amit.naik8103@gmail.com or you can create [issue](https://github.com/Amitpnk/angular-application/issues/new)
+
+## Folder Structure
+
+
 
 ## Sample application with each steps
 

@@ -43,7 +43,23 @@ For feedback can drop mail to my email address amit.naik8103@gmail.com or you ca
 ### Step 2 - Adding Nuget package manager
 
 * Install Microsoft.EntityFrameworkCore.SqlServer to <b>MilitaryApp.Data</b> Class library <br/>
-(As Microsoft.EntityFrameworkCore.SqlServer is dependent on Microsoft.EntityFrameworkCore.Relational and it is dependent on Microsoft.EntityFrameworkCore.Core, so we have add one Microsoft.EntityFrameworkCore.SqlServer nuget package manager)
+(As Microsoft.EntityFrameworkCore.SqlServer is dependent on Microsoft.EntityFrameworkCore.Relational and it is dependent on Microsoft.EntityFrameworkCore.Core, so we can add one Microsoft.EntityFrameworkCore.SqlServer nuget package manager)
+
+and Add class in <b>MilitaryApp.Domain</b>
+
+```C#
+  public class Military
+    {
+        public Military()
+        {
+            Quotes = new List<Quote>();
+        }
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public List<Quote> Quotes { get; set; }
+        public King King { get; set; }
+    }
+```
 
 and Add MilitaryContext.cs in <b>MilitaryApp.Data</b>
 

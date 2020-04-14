@@ -1,12 +1,13 @@
 # military-entityfreameworkcore
  
-Step by step creating web api application 
+Step by step tutorials creating Entity framework core
 
 ## Table of Contents
 
 - [Sending Feedback](#sending-feedback)
 - [About Entity Framework Core](#folder-structure)
 - [Sample application with each labs](#sample-application-with-each-steps)
+    - Creating Entity Framework Core
         - [Step 1 - Create Application](#step-1---create-application)
     - Controlling database creation and Schema changes
         - [Step 2 - Adding EntityFramework via Nuget ](#step-2---adding-entityframework-via-nuget)
@@ -27,9 +28,19 @@ Step by step creating web api application
 
 For feedback can drop mail to my email address amit.naik8103@gmail.com or you can create [issue](https://github.com/Amitpnk/angular-application/issues/new)
 
-## Folder Structure
+## About Entity Framework Core
 
+* EF Core is an ORM (Object Relation Mapper)
+* Microsoft's official data access technology for .NET development
+* It is cross-platform (design and deploy on Windows, macOS & Linux)
 
+### Benefits of EF Core
+ * Developer productivity
+ * Coding consistency
+
+### Evolution of EF Core
+
+![EF CORE](Assets/1.png)
 
 ## Sample application with each steps
 
@@ -48,17 +59,31 @@ For feedback can drop mail to my email address amit.naik8103@gmail.com or you ca
 and Add class in <b>MilitaryApp.Domain</b>
 
 ```C#
-  public class Military
+public class Military
+{
+    public Military()
     {
-        public Military()
-        {
-            Quotes = new List<Quote>();
-        }
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public List<Quote> Quotes { get; set; }
-        public King King { get; set; }
+        Quotes = new List<Quote>();
     }
+    public int Id { get; set; }
+    public string Name { get; set; }
+    public List<Quote> Quotes { get; set; }
+    public King King { get; set; }
+}
+
+public  class King
+{
+    public int Id { get; set; }
+    public string KingName { get; set; }
+}
+
+public class Quote
+{
+    public int Id { get; set; }
+    public string Text { get; set; }
+    public Military Military { get; set; }
+    public int MilitaryId { get; set; }
+}
 ```
 
 and Add MilitaryContext.cs in <b>MilitaryApp.Data</b>

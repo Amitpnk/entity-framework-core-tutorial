@@ -99,6 +99,12 @@ public class MilitaryContext : DbContext
     public DbSet<Military> Militaries { get; set; }
     public DbSet<Quote> Quotes { get; set; }
     public DbSet<King> Kings { get; set; }
+
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        optionsBuilder
+            .UseSqlServer("Data Source=(local)\\SQLexpress;Initial Catalog=MilitaryDB;Integrated Security=True");
+    }
 }
 ```
 
@@ -143,9 +149,11 @@ class Program
 
 ### Step 4 - Adding migration
 
-* Install Microsoft.EntityFrameworkCore.Tools to <b>ConsoleApp</b> Application <br/>
+* Install Microsoft.EntityFrameworkCore.Tools to <b>MilitaryApp.Data</b> Application <br/>
+* Install Microsoft.EntityFrameworkCore.Design to <b>Console</b> Application <br/>
+
 * Make it Console application as default project
-* In Package Manager console in MilitaryApp.Data , run below command
+* In Package Manager console run below command, under <b>MilitaryApp.Data</b>
     * Add-Migration init
     * Update-Database
 
@@ -281,12 +289,12 @@ Add below code snippet to MilitaryApp.Data
                 .UseSqlServer("Data Source=(local)\\SQLexpress;Initial Catalog=MilitaryDB;Integrated Security=True");
         }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder
-                .UseLoggerFactory(ConsoleLoggerFactory)
-                .UseSqlServer("Data Source=(local)\\SQLexpress;Initial Catalog=MilitaryDB;Integrated Security=True");
-        }
+        // protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        // {
+        //     optionsBuilder
+        //         .UseLoggerFactory(ConsoleLoggerFactory)
+        //         .UseSqlServer("Data Source=(local)\\SQLexpress;Initial Catalog=MilitaryDB;Integrated Security=True");
+        // }
 ```
 
 ### Step 12 - For bulk operations

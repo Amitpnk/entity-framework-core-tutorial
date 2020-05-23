@@ -4,16 +4,17 @@ using MilitaryApp.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 
 namespace ConsoleApp
 {
     class Program
     {
-        static MilitaryContext context = new MilitaryContext();
+        private static MilitaryContext _context = new MilitaryContext();
         static void Main(string[] args)
         {
             // Ensure DB is ready else Create NEW Database
-            context.Database.EnsureCreated();
+            _context.Database.EnsureCreated();
 
             //GetMilitary("Before Add: ");
             //AddMilitary();
@@ -22,13 +23,17 @@ namespace ConsoleApp
             //InsertMulitipleMilitary();
             //InsertVariousType();
             //RetrieveAndUpdateMilitary();
-            RetrieveAndUpdateMulitpleMilitary();
+            //RetrieveAndUpdateMulitpleMilitary();
+
+            //InsertNewMilitaryWithQuote();
+            //AddQuoteToExistingMilitary();
+            EagerLoadMilitaryWithQuotes();
         }
 
         private static void GetMilitary(string text)
         {
             // Get all data from Military table
-            var militarys = context.Militaries.ToList();
+            var militarys = _context.Militaries.ToList();
 
             Console.WriteLine($"{text}: Military Count is {militarys.Count}");
 
@@ -42,8 +47,8 @@ namespace ConsoleApp
         {
             // For inserting to military table
             var militarys = new Military { Name = "Amit" };
-            context.Militaries.Add(militarys);
-            context.SaveChanges();
+            _context.Militaries.Add(militarys);
+            _context.SaveChanges();
         }
 
 
@@ -59,10 +64,10 @@ namespace ConsoleApp
             //var militaries = new List<Military>();
             //militaries.Add(military1);
             //militaries.Add(military2);
-            //context.Militaries.AddRange(militaries);
-                
-            context.Militaries.AddRange(military1, military2, military3, military4);
-            context.SaveChanges();
+            //_context.Militaries.AddRange(militaries);
+
+            _context.Militaries.AddRange(military1, military2, military3, military4);
+            _context.SaveChanges();
         }
 
         private static void InsertVariousType()
@@ -70,33 +75,96 @@ namespace ConsoleApp
             // For inserting to military table
             var militarys = new Military { Name = "Military 5 with king 1" };
             var kings = new King { KingName = "King1" };
-            context.AddRange(militarys,kings);
-            context.SaveChanges();
+            _context.AddRange(militarys, kings);
+            _context.SaveChanges();
         }
 
         private static void RetrieveAndUpdateMilitary()
         {
-            var militaries = context.Militaries.FirstOrDefault();
+            var militaries = _context.Militaries.FirstOrDefault();
             militaries.Name += "Naik";
-            context.SaveChanges();
+            _context.SaveChanges();
         }
 
         private static void RetrieveAndUpdateMulitpleMilitary()
         {
-            var militaries = context.Militaries.Skip(0).Take(3).ToList();
+            var militaries = _context.Militaries.Skip(0).Take(3).ToList();
             militaries.ForEach(m => m.Name += " update ");
 
             // Incase for adding any new record
-            context.Militaries.Add(new Military { Name = "Military added" });
-            context.SaveChanges();
+            _context.Militaries.Add(new Military { Name = "Military added" });
+            _context.SaveChanges();
         }
 
         private static void DeleteMilitary()
         {
-            var militaries = context.Militaries.Find(1);
+            var militaries = _context.Militaries.Find(1);
 
-            context.Militaries.Remove(militaries);
-            context.SaveChanges();
+            _context.Militaries.Remove(militaries);
+            _context.SaveChanges();
         }
+
+        private static void InsertNewMilitaryWithQuote()
+        {
+            var military = new Military
+            {
+                Name = "Marathas",
+                Quotes = new List<Quote>
+                {
+                    new Quote {Text ="To save country"}
+                }
+            };
+            _context.Militaries.Add(military);
+            _context.SaveChanges();
+        }
+
+        private static void AddQuoteToExistingMilitary()
+        {
+            //var military = _context.Militaries.Find(15);
+            //military.Quotes.Add(new Quote
+            //{
+            //    Text = "Added: To save nation"
+            //});
+            //using (var newContext = new MilitaryContext())
+            //{
+            //    newContext.Militaries.Attach(military);
+            //    newContext.SaveChanges();
+            //}
+
+            // Or
+
+            var quote = new Quote
+            {
+                Text = "other way",
+                MilitaryId = 15
+            };
+            using (var newContext = new MilitaryContext())
+            {
+                newContext.Quotes.Add(quote);
+                newContext.SaveChanges();
+            }
+        }
+
+        private static void EagerLoadMilitaryWithQuotes()
+        {
+            // left join
+            var militaryQuotes = _context.Militaries
+                .Include(s => s.Quotes).ToList();
+
+            var militaryQuotes4 = _context.Militaries
+                .Include(s => s.Quotes)
+                .Include(s => s.King).ToList();
+
+        }
+
+        private static void FilteringWithRelatedData()
+        {
+            var military = _context.Militaries
+                .Where(s => s.Quotes.Any(q => q.Text.Contains("Happy")))
+                .ToList();
+        }
+
+     
     }
+
 }

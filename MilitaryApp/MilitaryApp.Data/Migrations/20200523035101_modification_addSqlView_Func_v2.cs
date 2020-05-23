@@ -7,7 +7,7 @@ namespace MilitaryApp.Data.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.Sql(
-                @"create function fun_JoinColumnInfo  
+                @"create function dbo.funJoinColumnInfo  
                     (
                        @name nvarchar(50),
                     )
@@ -16,7 +16,7 @@ namespace MilitaryApp.Data.Migrations
                     begin return (select @name)  
                     end ");
             migrationBuilder.Sql(
-                @"CREATE OR ALTER VIEW dbo.getBattle
+                @"CREATE OR ALTER VIEW dbo.getMilitary
                     AS 
                     SELECT * from military
                 ");
@@ -24,7 +24,8 @@ namespace MilitaryApp.Data.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-
+            migrationBuilder.Sql("DROP VIEW dbo.getMilitary");
+            migrationBuilder.Sql("DROP FUNCTION dbo.funJoinColumnInfo")
         }
     }
 }

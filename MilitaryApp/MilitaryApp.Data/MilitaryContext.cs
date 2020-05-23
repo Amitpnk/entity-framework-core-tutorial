@@ -15,6 +15,8 @@ namespace MilitaryApp.Data
         public DbSet<Battle> Battles { get; set; }
         public DbSet<Horse> Horses { get; set; }
 
+        public DbSet<ViewMilitary> viewMilitary { get; set; }
+
         public static readonly ILoggerFactory ConsoleLoggerFactory
             = LoggerFactory.Create(builder =>
             {
@@ -41,6 +43,7 @@ namespace MilitaryApp.Data
             // Other options to create table is via modelbuilder
             // modelBuilder.Entity<Horse>().ToTable("Horses");
 
+            modelBuilder.Entity<ViewMilitary>().HasNoKey().ToView("getMilitary");
         }
     }
 }

@@ -27,6 +27,10 @@ Step by step tutorials creating Entity framework core
         - [Step 14 - Aggregating in Queries](#step-14---aggregating-in-queries)
         - [Step 15 - Updating object](#step-15---updating-object)
         - [Step 16 - Deleting object](#step-16---deleting-object)
+    - Interacting with Related Data
+        - []
+    - Working with Views and Stored Procedures and Raw SQL
+        - []
      
 
 ## Sending Feedback
@@ -411,4 +415,135 @@ Internally EF core does cache queries to reduce repeating effort in same applica
     context.Militaries.Remove(militaries);
     context.SaveChanges();
 ```
+
+### Step 17 - Inserted related data
+
+```c#
+private static void InsertNewMilitaryWithQuote()
+{
+    var military = new Military
+    {
+        Name = "Marathas",
+        Quotes = new List<Quote>
+        {
+            new Quote {Text ="To save country"}
+        }
+    };
+    _context.Militaries.Add(military);
+    _context.SaveChanges();
+}
+
+private static void AddQuoteToExistingMilitary()
+{
+    var quote = new Quote
+    {
+        Text = "To save nation",
+        MilitaryId = 15
+    };
+    using (var newContext = new MilitaryContext())
+    {
+        newContext.Quotes.Add(quote);
+        newContext.SaveChanges();
+    }
+}
+```
+
+### Step 18 - Eager loading related data
+
+```c#
+private static void EagerLoadMilitaryWithQuotes()
+{
+    // left join
+    var militaryQuotes = _context.Militaries
+        .Include(s => s.Quotes).ToList();
+
+    var militaryQuotesLeftJoin = _context.Militaries
+        .Include(s => s.Quotes)
+        .Include(s => s.King).ToList();
+
+}
+
+```
+
+### Step 19 - Using Related Data to Filter Objects
+
+```c#
+private static void FilteringWithRelatedData()
+{
+    var military = _context.Militaries
+        .Where(s => s.Quotes.Any(q => q.Text.Contains("Happy")))
+        .ToList();
+}
+
+```
+
+## Working with Views and Stored Procedures and Raw SQL
+
+
+### Step 20 -Adding Views and Other Database Objects Using Migrations
+
+* In Package Manager console in MilitaryApp.Data , run below command
+    * add-migration modification_addSqlView_Func_v2
+    
+```C#
+public partial class modification_addSqlView_Func_v2 : Migration
+{
+    protected override void Up(MigrationBuilder migrationBuilder)
+    {
+        migrationBuilder.Sql(
+            @"create function dbo.funJoinColumnInfo  
+                (
+                    @name nvarchar(50),
+                )
+                returns nvarchar(100)
+                as
+                begin return (select @name)  
+                end ");
+        migrationBuilder.Sql(
+            @"CREATE OR ALTER VIEW dbo.getBattle
+                AS 
+                SELECT * from military
+            ");
+    }
+
+    // Incase if you want to revoke migration
+    protected override void Down(MigrationBuilder migrationBuilder)
+    {
+        migrationBuilder.Sql("DROP VIEW dbo.getBattle");
+        migrationBuilder.Sql("DROP FUNCTION dbo.funJoinColumnInfo")
+    }
+}
+```
+
+### Step 21 - Using Keyless Entities to Map to Views
+
+Connect SQL view to db context, using keyless entities
+
+```c#
+namespace MilitaryApp.Domain
+{
+    public class ViewMilitary
+    {
+        public string Name { get; set; }
+        public King King { get; set; }
+      
+    }
+}
+```
+
+```c#
+public class MilitaryContext : DbContext
+{
+    public DbSet<ViewMilitary> viewMilitary { get; set; }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        // ...
+
+        modelBuilder.Entity<ViewMilitary>().HasNoKey().ToView("getBattle");
+    }
+}
+```
+
+### Step 22 - Querying the Database Views
 

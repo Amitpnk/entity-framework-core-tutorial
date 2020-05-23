@@ -164,7 +164,10 @@ namespace ConsoleApp
                 .ToList();
         }
 
-     
+        private static void QuerySQLView()
+        {
+            var military = _context.viewMilitary.FirstOrDefault();
+        }
     }
 
 }

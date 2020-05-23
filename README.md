@@ -28,9 +28,16 @@ Step by step tutorials creating Entity framework core
         - [Step 15 - Updating object](#step-15---updating-object)
         - [Step 16 - Deleting object](#step-16---deleting-object)
     - Interacting with Related Data
-        - []
+        - [Step 17 - Inserted related data]
+        - [Step 18 - Eager loading related data]
+        - [Step 19 - Using Related Data to Filter Objects]
     - Working with Views and Stored Procedures and Raw SQL
-        - []
+        - [Step 20 -Adding Views and Other Database Objects Using Migrations]
+        - [Step 21 - Using Keyless Entities to Map to Views]
+        - [Step 22 - Querying the Database Views]
+        - [Step 23 - Querying with Raw SQL]
+        - [Step 24 - Running Stored Procedure Queries with Raw SQL]
+        - [Step 25 - Executing Non-Query Raw SQL Commands]
      
 
 ## Sending Feedback
@@ -53,12 +60,16 @@ For feedback can drop mail to my email address amit.naik8103@gmail.com or you ca
 
 ## Sample application with each steps
 
+## Creating Entity Framework Core
+
 ### Step 1 - Create Application
 
 * Create Blank solution
 * Class library .NET Standard
     * MilitaryApp.Domain
     * MilitaryApp.Data (Latest version on .Net standard - 2.1)
+
+## Controlling database creation and Schema changes
 
 ### Step 2 - Adding Nuget package manager
 
@@ -178,6 +189,8 @@ If we want to get SQL script
 scaffold-dbcontext -provider Microsoft.EntityFrameworkCore.SqlServer -connection "Data Source=(local)\SQLexpress;Initial Catalog=MilitaryDB;Integrated Security=True"
 ```
 
+## Mapping many to mmany and one to one relationship
+
 ### Step 7 - Many to many relationship
 
 ```C#
@@ -272,6 +285,8 @@ modelBuilder.Entity<Horse>().ToTable("Horses");
 * In Package Manager console in MilitaryApp.Data , run below command
     * Add-Migration modification_v1
     * Update-Database
+
+## Interacting with EF Core data model
 
 ### Step 11 - Adding logging to EF Core's 
 
@@ -416,6 +431,8 @@ Internally EF core does cache queries to reduce repeating effort in same applica
     context.SaveChanges();
 ```
 
+## Interacting with Related Data
+
 ### Step 17 - Inserted related data
 
 ```c#
@@ -478,7 +495,6 @@ private static void FilteringWithRelatedData()
 ```
 
 ## Working with Views and Stored Procedures and Raw SQL
-
 
 ### Step 20 -Adding Views and Other Database Objects Using Migrations
 
@@ -573,7 +589,7 @@ private static void QueryUsingRawSqlWithInterpolation()
 }
 ```
 
-### Step 23 - Running Stored Procedure Queries with Raw SQL
+### Step 24 - Running Stored Procedure Queries with Raw SQL
 
 * In Package Manager console in MilitaryApp.Data , run below command
     * add-migration modification_addSqlProcedure_v3
@@ -617,7 +633,7 @@ private static void InterpolatedRawSqlQueryStoredProc()
 }
 ```
 
-### Step 24 - Executing Non-Query Raw SQL Commands
+### Step 25 - Executing Non-Query Raw SQL Commands
 
 ```c#
 private static void ExecuteSomeRawSql()

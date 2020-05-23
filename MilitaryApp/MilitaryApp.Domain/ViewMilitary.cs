@@ -9,7 +9,6 @@ namespace MilitaryApp.Domain
     public class ViewMilitary
     {
         public string Name { get; set; }
-        public King King { get; set; }
       
     }
 }

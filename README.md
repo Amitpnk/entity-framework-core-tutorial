@@ -627,3 +627,4 @@ private static void ExecuteSomeRawSql()
         .ExecuteSqlInterpolated($"EXEC dbo.DeleteMilitary {name}");
 }
 ```
+

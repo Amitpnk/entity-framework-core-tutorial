@@ -197,7 +197,15 @@ namespace ConsoleApp
         {
             string name = "amit";
             var military = _context.Militaries
-                .FromSqlInterpolated($"EXEC dbo.uspGetMilitary {name}").ToList();
+                .exe($"EXEC dbo.uspGetMilitary {name}").ToList();
+        }
+
+
+        private static void ExecuteSomeRawSql()
+        {
+            string name = "amit";
+            var military = _context.Database
+                .ExecuteSqlInterpolated($"EXEC dbo.DeleteMilitary {name}");
         }
     }
 

@@ -7,37 +7,37 @@ Step by step tutorials creating Entity framework core
 - [Sending Feedback](#sending-feedback)
 - [About Entity Framework Core](#about-entity-framework-core)
 - [Sample application with each labs](#sample-application-with-each-steps)
-    - Creating Entity Framework Core
+    - [Creating Entity Framework Core](#creating-entity-framework-core)
         - [Step 1 - Create Application](#step-1---create-application)
-    - Controlling database creation and Schema changes
+    - [Controlling database creation and Schema changes](#controlling-database-creation-and-schema-changes)
         - [Step 2 - Adding EntityFramework via Nuget ](#step-2---adding-entityframework-via-nuget)
         - [Step 3 - Create Console App](#step-3---adding-migration)
         - [Step 4 - Adding migration](#step-4---adding-migration)
         - [Step 5 - Script migration for production DB](#step-5---script-migration-for-production-db)
         - [Step 6 - Reverse engineering from existing database](#step-6---reverse-engineering-from-existing-database)
-    - Mapping many to mmany and one to one relationship
+    - [Mapping many to mmany and one to one relationship](#mapping-many-to-mmany-and-one-to-one-relationship)
         - [Step 7 - Many to many relationship](#step-7---many-to-many-relationship)
         - [Step 8 - One to one relationship](#step-8---one-to-one-relationship)
         - [Step 9 - Visualising how EF Core model looks](#step-9---visualising-how-ef-core-model-looks)
         - [Step 10 - Running Migration for Model changes](#step-10---running-migration-for-model-changes)
-    - Interacting with EF Core data model
+    - [Interacting with EF Core data model](#interacting-with-ef-core-data-model)
         - [Step 11 - Adding logging to EF Core's](#step-11---adding-logging-to-ef-cores)
         - [Step 12 - For bulk operations](#step-12---for-bulk-operations)
         - [Step 13 - Understading queries](#step-13---understading-queries)
         - [Step 14 - Aggregating in Queries](#step-14---aggregating-in-queries)
         - [Step 15 - Updating object](#step-15---updating-object)
         - [Step 16 - Deleting object](#step-16---deleting-object)
-    - Interacting with Related Data
-        - [Step 17 - Inserted related data]
-        - [Step 18 - Eager loading related data]
-        - [Step 19 - Using Related Data to Filter Objects]
-    - Working with Views and Stored Procedures and Raw SQL
-        - [Step 20 -Adding Views and Other Database Objects Using Migrations]
-        - [Step 21 - Using Keyless Entities to Map to Views]
-        - [Step 22 - Querying the Database Views]
-        - [Step 23 - Querying with Raw SQL]
-        - [Step 24 - Running Stored Procedure Queries with Raw SQL]
-        - [Step 25 - Executing Non-Query Raw SQL Commands]
+    - [Interacting with Related Data](#interacting-with-related-data)
+        - [Step 17 - Inserted related data](#step-17---inserted-related-data)
+        - [Step 18 - Eager loading related data](#step-18---eager-loading-related-data)
+        - [Step 19 - Using Related Data to Filter Objects](#step-19---using-related-data-to-filter-objects)
+    - [Working with Views and Stored Procedures and Raw SQL](#working-with-views-and-stored-procedures-and-raw-sql)
+        - [Step 20 -Adding Views and Other Database Objects Using Migrations](#step-20--adding-views-and-other-database-objects-using-migrations)
+        - [Step 21 - Using Keyless Entities to Map to Views](#step-21---using-keyless-entities-to-map-to-views)
+        - [Step 22 - Querying the Database Views](#step-22---querying-the-database-views)
+        - [Step 23 - Querying with Raw SQL](#step-23---querying-with-raw-sql)
+        - [Step 24 - Running Stored Procedure Queries with Raw SQL](#step-24---running-stored-procedure-queries-with-raw-sql)
+        - [Step 25 - Executing Non-Query Raw SQL Commands](#step-25---executing-non-query-raw-sql-commands)
      
 
 ## Sending Feedback

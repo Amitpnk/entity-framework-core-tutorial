@@ -197,7 +197,7 @@ namespace ConsoleApp
         {
             string name = "amit";
             var military = _context.Militaries
-                .exe($"EXEC dbo.uspGetMilitary {name}").ToList();
+                .FromSqlRaw($"EXEC dbo.uspGetMilitary {name}").ToList();
         }
 
 

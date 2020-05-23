@@ -575,5 +575,55 @@ private static void QueryUsingRawSqlWithInterpolation()
 
 ### Step 23 - Running Stored Procedure Queries with Raw SQL
 
+* In Package Manager console in MilitaryApp.Data , run below command
+    * add-migration modification_addSqlProcedure_v3
+    
+```C#
+public partial class modification_addSqlProcedure_v3 : Migration
+{
+    protected override void Up(MigrationBuilder migrationBuilder)
+    {
+        migrationBuilder.Sql(
+            @"create PROCEDURE dbo.uspGetMilitary
+                @militaryId int
+                AS
+                    SELECT militaryId, name from military
+                    WHERE militaryId = @militaryId
+            ");
+    }
+
+    // Incase if you want to revoke migration
+    protected override void Down(MigrationBuilder migrationBuilder)
+    {
+        migrationBuilder.Sql("DROP PROCEDURE dbo.uspGetMilitary")
+    }
+}
+```
+
+```c#
+private static void QueryUsingFromRawSqlProcedure()
+{
+    string name = "amit";
+    var military = _context.Militaries
+        .FromSqlRaw($"EXEC dbo.uspGetMilitary {name}").ToList();
+}
+
+// Recommended
+private static void InterpolatedRawSqlQueryStoredProc()
+{
+    string name = "amit";
+    var military = _context.Militaries
+        .FromSqlInterpolated($"EXEC dbo.uspGetMilitary {name}").ToList();
+}
+```
 
 ### Step 24 - Executing Non-Query Raw SQL Commands
+
+```c#
+private static void ExecuteSomeRawSql()
+{
+    string name = "amit";
+    var military = _context.Database
+        .ExecuteSqlInterpolated($"EXEC dbo.DeleteMilitary {name}");
+}
+```

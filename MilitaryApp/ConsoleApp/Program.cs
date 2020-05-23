@@ -176,12 +176,28 @@ namespace ConsoleApp
 
         }
 
+        // Recommended
         private static void QueryUsingRawSqlWithInterpolation()
         {
             string name = "amit";
             var military = _context.Militaries
                 .FromSqlInterpolated($"select Name from military where name {name}").ToList();
+        }
 
+
+        private static void QueryUsingFromRawSqlProcedure()
+        {
+            string name = "amit";
+            var military = _context.Militaries
+                .FromSqlRaw($"EXEC dbo.uspGetMilitary {name}").ToList();
+        }
+
+        // Recommended
+        private static void InterpolatedRawSqlQueryStoredProc()
+        {
+            string name = "amit";
+            var military = _context.Militaries
+                .FromSqlInterpolated($"EXEC dbo.uspGetMilitary {name}").ToList();
         }
     }
 

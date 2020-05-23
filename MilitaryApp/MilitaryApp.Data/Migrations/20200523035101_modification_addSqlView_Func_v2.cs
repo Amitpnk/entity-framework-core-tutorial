@@ -25,7 +25,7 @@ namespace MilitaryApp.Data.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.Sql("DROP VIEW dbo.getMilitary");
-            migrationBuilder.Sql("DROP FUNCTION dbo.funJoinColumnInfo")
+            migrationBuilder.Sql("DROP FUNCTION dbo.funJoinColumnInfo");
         }
     }
 }

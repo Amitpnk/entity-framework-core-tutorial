@@ -547,3 +547,33 @@ public class MilitaryContext : DbContext
 
 ### Step 22 - Querying the Database Views
 
+```c#
+private static void QuerySQLView()
+{
+    var military = _context.viewMilitary.FirstOrDefault();
+}
+```
+
+### Step 23 - Querying with Raw SQL
+
+```c#
+private static void QueryUsingRawSql()
+{
+    var military = _context.Militaries
+    .FromSqlRaw("select Name from military").ToList();
+
+}
+
+private static void QueryUsingRawSqlWithInterpolation()
+{
+    string name = "amit";
+    var military = _context.Militaries
+        .FromSqlInterpolated($"select Name from military where name {name}").ToList();
+
+}
+```
+
+### Step 23 - Running Stored Procedure Queries with Raw SQL
+
+
+### Step 24 - Executing Non-Query Raw SQL Commands

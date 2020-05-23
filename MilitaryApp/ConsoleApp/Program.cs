@@ -168,6 +168,21 @@ namespace ConsoleApp
         {
             var military = _context.viewMilitary.FirstOrDefault();
         }
+
+        private static void QueryUsingRawSql()
+        {
+            var military = _context.Militaries
+            .FromSqlRaw("select Name from military").ToList();
+
+        }
+
+        private static void QueryUsingRawSqlWithInterpolation()
+        {
+            string name = "amit";
+            var military = _context.Militaries
+                .FromSqlInterpolated($"select Name from military where name {name}").ToList();
+
+        }
     }
 
 }

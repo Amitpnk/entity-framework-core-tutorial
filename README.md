@@ -1,4 +1,4 @@
-# military-entity-framework-core
+# entity-framework-core-tutorial
  
 Step by step tutorials creating Entity framework core
 
